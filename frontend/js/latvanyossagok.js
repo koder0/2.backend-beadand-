@@ -22,7 +22,7 @@ function allLatvanyossagok(){
                         </ul>
                         <div class="card-body">
                             <a href="${element.URL}" target="_blank" class="card-link">Kép megnyitása</a><br />
-                            <a href="" onclick="javascript:deleteLatvanyossag(${element.id})" class="btn btn-danger">Törlés</a>
+                            <input type="button" onclick="javascript:deleteLatvanyossag(${element.id})" class="btn btn-danger" value="Törlés">
                         </div>
                         </div>
                 </div>
