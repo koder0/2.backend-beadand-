@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [
     path('latvanyossagok',views.latvanyossagData),
     path('torles/<int:LatId>',views.deleteLatvanyossag, name="deleteLatvanyossag"),
+    path('telepulesek',views.telepulesData),
 ]

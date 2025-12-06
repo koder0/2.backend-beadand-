@@ -4,8 +4,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Latvanyossag
-from .serializers import LatvanyossagSerializer
+from .models import Latvanyossag, Telepules
+from .serializers import LatvanyossagSerializer, TelepulesSerializer
 
 import random
 # Create your views here.
@@ -21,6 +21,13 @@ def latvanyossagData(request):
              serialized.save()
              return Response(serialized.data,status.HTTP_201_CREATED)
          return Response(serialized.errors,status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"])
+def telepulesData(request):
+    if request.method == "GET":
+        allTelepules = Telepules.objects.all().order_by("Nev")
+        serialized = TelepulesSerializer(allTelepules, many= True)
+        return Response(serialized.data)
 
 @api_view(["DELETE"])
 def deleteLatvanyossag(request,LatId):
