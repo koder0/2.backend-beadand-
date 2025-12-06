@@ -39,28 +39,32 @@
                       
                   </tr>
               </thead>
-              <tbody class="latvanyossagokTabla" >
+              <tbody id="latvanyossagokTabla">
               </tbody>
-              <tbody >
-                  
-                  <tr class="align-middle">
+              
+              
+              <tbody>
+                      <tr class="align-middle">
                       <form action="" method="POST">
-                      <td><input type="text" name="nev" id="nev"></td>
-                      <td><input type="text" name="rleiras" id="rleiras"></td>
+                      <td><input class="w-100 p-1" type="text" name="nev" id="nev"></td>
                       <td>
-                          <select name="telepulesek" id="telepulesek">
+                        <textarea class="w-100 p-1" id="rleiras" name="rleiras" rows="1" cols="50" placeholder="Rövid leírás"></textarea>
+                        </textarea>
+                      </td>
+                      <td>
+                          <select class="w-100 p-1" name="telepulesek" id="telepulesek">
                           </select>     
                       </td>
-                      <td><input type="number" name="atlagErtekeles" id="atlagErtekeles" min="0" max="5.0"></td>
-                      <td><input type="text" name="nyitvatartas" id="nyitvatartas" placeholder="H-P: 07-19, SZ: 10-14, V: zárva"></td>
-                      <td><input type="url" name="url" id="url"></td>
+                      <td><input class="w-100 p-1" type="number" name="atlagErtekeles" id="atlagErtekeles" min="0" max="5.0"></td>
+                      <td><input class="w-100 p-1" type="text" name="nyitvatartas" id="nyitvatartas" placeholder="H-P: 07-19, SZ: 10-14, V: zárva"></td>
+                      <td><input class="w-100 p-1" type="url" name="url" id="url"></td>
                       <td>
                           <button class="btn btn-success" type="submit">+</button>   
                       </td>
                       </form>
-                  </tr>
-                  
+                      </tr>
                   </tbody>
+
               </table>
           </section>
       </main>

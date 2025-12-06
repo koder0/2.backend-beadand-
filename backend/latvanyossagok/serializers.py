@@ -22,4 +22,9 @@ class HozzaszolasokSerializer(serializers.ModelSerializer):
         model = Hozzaszolasok
         fields = '__all__'
 
+class LatvanyossagSerializerPOST(serializers.ModelSerializer):
+    class Meta:
+        model = Latvanyossag
+        fields = "__all__"
+
         

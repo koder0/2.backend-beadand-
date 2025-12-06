@@ -30,7 +30,7 @@ function allLatvanyossagok(){
             })
     });
 }
-
+/*
 function allLatvanyossagokTabla(){
     fetch(`${serverURL}/api/latvanyossagok`).
     then(res=>res.json()).
@@ -51,7 +51,7 @@ function allLatvanyossagokTabla(){
             
             })
     });
-}
+}*/
 
 function allLatvanyossagokTabla(){
     fetch(`${serverURL}/api/latvanyossagok`).
@@ -59,11 +59,11 @@ function allLatvanyossagokTabla(){
     then(res=>{
         res.forEach(element => 
             {
-                document.querySelector("#latvanyossagokTabla").innerHTML +=
+                document.querySelector("#latvanyossagokTabla").innerHTML+=
                 `
                 <tr>
                   <td>${element.Nev}</td>
-                  <td>${element.RLeiras}}</td>
+                  <td class="overflow-scroll">${element.RLeiras}</td>
                   <td>${element.VId.OId.Nev}: ${element.VId.Nev}</td>
                   <td>${element.AtlagErtekeles}</td>
                   <td>${element.Nyitvatartas}</td>
@@ -114,8 +114,8 @@ function deleteLatvanyossag(id)
 }
 
 
-/*
-function addNote()
+
+function addLatvanyossag()
 {
     let _newTitle=document.querySelector("#newTitle").value;
     let _newDescription = document.querySelector("#newDescription").value.replaceAll("\n","\r\n");
@@ -127,7 +127,7 @@ function addNote()
             color: _newColorId
         }
     );
-    fetch("http://127.0.0.1:8000/api/notes",
+    fetch("http://127.0.0.1:8000/api/latvanyossagok",
         {
             method:'POST',
             headers:
@@ -139,12 +139,11 @@ function addNote()
     ).then(res=>res.json())
     .then(data=>
         {
-            console.log("Note added successfully!")
+            console.log("Látváyosság sikeresen hozzáadva!")
             window.location.reload();
         })
     .catch(error=>console.log(error));
 }
-*/
 /**/
 /*
 function uploadImage()

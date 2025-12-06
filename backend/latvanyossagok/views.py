@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Latvanyossag, Telepules
-from .serializers import LatvanyossagSerializer, TelepulesSerializer
+from .serializers import LatvanyossagSerializer, TelepulesSerializer, LatvanyossagSerializerPOST
 
 import random
 # Create your views here.
@@ -16,7 +16,7 @@ def latvanyossagData(request):
         serialized = LatvanyossagSerializer(allLatvanyossag, many= True)
         return Response(serialized.data)
     if(request.method == "POST"):
-         serialized = LatvanyossagSerializer(data=request.data)
+         serialized = LatvanyossagSerializerPOST(data=request.data)
          if serialized.is_valid():
              serialized.save()
              return Response(serialized.data,status.HTTP_201_CREATED)
