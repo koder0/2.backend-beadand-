@@ -30,28 +30,6 @@ function allLatvanyossagok(){
             })
     });
 }
-/*
-function allLatvanyossagokTabla(){
-    fetch(`${serverURL}/api/latvanyossagok`).
-    then(res=>res.json()).
-    then(res=>{
-        res.forEach(element => 
-            {
-                document.querySelector("#latvanyossagokTabla").innerHTML +=
-                `
-                <tr>
-                  <td>${element.Nev}</td>
-                  <td>${element.RLeiras}}</td>
-                  <td>${element.VId.OId.Nev}: ${element.VId.Nev}</td>
-                  <td>${element.AtlagErtekeles}</td>
-                  <td>${element.Nyitvatartas}</td>
-                  <td>${element.URL}"</td>        
-                </tr>
-                `;
-            
-            })
-    });
-}*/
 
 function allLatvanyossagokTabla(){
     fetch(`${serverURL}/api/latvanyossagok`).
@@ -117,14 +95,24 @@ function deleteLatvanyossag(id)
 
 function addLatvanyossag()
 {
-    let _newTitle=document.querySelector("#newTitle").value;
-    let _newDescription = document.querySelector("#newDescription").value.replaceAll("\n","\r\n");
-    let _newColorId = document.querySelector("#selectedColor").value;
+    let _nev = document.querySelector("#nev").value;
+    let _rLeiras = document.querySelector("#rleiras").value.replaceAll("\n","\r\n");
+    let _telepulesId = document.querySelector("#telepulesek").value;
+    let _atlagErt = document.querySelector("#atlagErtekeles").value;
+    let _nyitva = document.querySelector("#nyitvatartas").value;
+    let _url = document.querySelector("#url").value;
+    
+
     let _data = JSON.stringify(
         {
-            title: _newTitle,
-            description: _newDescription,
-            color: _newColorId
+            Nev: _nev,
+            RLeiras: _rLeiras,
+            AtlagErtekeles: _atlagErt,
+            Nyitvatartas: _nyitva,
+            URL: _url,
+            VId: {
+                id: _telepulesId
+            },
         }
     );
     fetch("http://127.0.0.1:8000/api/latvanyossagok",
