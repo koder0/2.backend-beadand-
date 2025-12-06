@@ -110,9 +110,7 @@ function addLatvanyossag()
             AtlagErtekeles: _atlagErt,
             Nyitvatartas: _nyitva,
             URL: _url,
-            VId: {
-                id: _telepulesId
-            },
+            VId: _telepulesId,
         }
     );
     fetch("http://127.0.0.1:8000/api/latvanyossagok",
