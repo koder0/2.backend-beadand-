@@ -18,10 +18,21 @@
             <li class="nav-item">
             <a class="nav-link active" href="">Főoldal</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="feltoltes/">Feltöltés</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Feltöltés
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="feltoltes/">Látványosság feltöltés</a></li>
+                    <li><a class="dropdown-item" href="feltoltes/orszag/">Ország feltöltés</a></li>
+                    <li><a class="dropdown-item" href="feltoltes/telepules/">Település feltöltés</a></li>
+                </ul>
             </li>
         </ul>
+        <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Keresés" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Keresés</button>
+        </form>
         </div>
     </div>
     </nav>

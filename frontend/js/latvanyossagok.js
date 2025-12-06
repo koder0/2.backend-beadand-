@@ -31,6 +31,7 @@ function allLatvanyossagok(){
     });
 }
 
+
 function allLatvanyossagokTabla(){
     fetch(`${serverURL}/api/latvanyossagok`).
     then(res=>res.json()).
@@ -53,6 +54,61 @@ function allLatvanyossagokTabla(){
     });
 }
 
+
+function OrszagokTabla(){
+    fetch(`${serverURL}/api/orszagok`).
+    then(res=>res.json()).
+    then(res=>{
+        res.forEach(element => 
+            {
+                document.querySelector("#OrszagokTabla").innerHTML+=
+                `
+                <tr>
+                  <td>${element.id}</td>
+                  <td>${element.Nev}</td>
+                  <td><input type="button" onclick="javascript:deleteOrszag(${element.id})" class="btn btn-danger" value="Törlés"></td>        
+                </tr>
+                `;
+            
+            })
+    });
+}
+
+function TelepulesekTabla(){
+    fetch(`${serverURL}/api/telepulesek`).
+    then(res=>res.json()).
+    then(res=>{
+        res.forEach(element => 
+            {
+                document.querySelector("#telepulesekTabla").innerHTML+=
+                `
+                <tr>
+                  <td>${element.id}</td>
+                  <td>${element.OId.Nev}</td>
+                  <td>${element.Nev}</td>
+                  <td><input type="button" onclick="javascript:deleteTelepules(${element.id})" class="btn btn-danger" value="Törlés"></td>        
+                </tr>
+                `;
+            
+            })
+    });
+}
+
+function OrszagokOption(){
+    fetch(`${serverURL}/api/orszagok`).
+    then(res=>res.json()).
+    then(res=>{
+        res.forEach(element => 
+            {
+                document.querySelector("#orszagok").innerHTML+=
+                `
+                <option value="${element.id}">${element.Nev}</option>
+                `;
+            
+            })
+    });
+}
+
 function telepulesekOption(){
     fetch(`${serverURL}/api/telepulesek`).
     then(res=>res.json()).
@@ -66,6 +122,53 @@ function telepulesekOption(){
             
             })
     });
+}
+
+
+function deleteOrszag(id)
+{
+    fetch(`http://127.0.0.1:8000/api/OrszagTorles/${id}`,
+        {
+            method:"DELETE",
+            headers:
+            {
+                'Content-Type':'application/json'
+            }
+        }).then(res=>
+        {
+            if (res.ok)
+            {
+                console.log("Az ország törölve.");
+                window.location.reload();
+            }
+            else
+            {
+                console.log("Az ország törlése nem sikerült.")
+            }
+        }).catch(error=>{console.log(error)});
+}
+
+function deleteTelepules(id)
+{
+    fetch(`http://127.0.0.1:8000/api/TelepulesTorles/${id}`,
+        {
+            method:"DELETE",
+            headers:
+            {
+                'Content-Type':'application/json'
+            }
+        }).then(res=>
+        {
+            if (res.ok)
+            {
+                console.log("A település törölve.");
+                window.location.reload();
+            }
+            else
+            {
+                console.log("A település törlése nem sikerült.")
+            }
+        }).catch(error=>{console.log(error)});
 }
 
 function deleteLatvanyossag(id)
@@ -125,11 +228,68 @@ function addLatvanyossag()
     ).then(res=>res.json())
     .then(data=>
         {
-            console.log("Látváyosság sikeresen hozzáadva!")
+            console.log("Látványosság sikeresen hozzáadva!")
             window.location.reload();
         })
     .catch(error=>console.log(error));
 }
+
+function addOrszag()
+{
+    let _nev = document.querySelector("#nev").value;  
+
+    let _data = JSON.stringify(
+        {
+            Nev: _nev,
+        }
+    );
+    fetch("http://127.0.0.1:8000/api/orszagok",
+        {
+            method:'POST',
+            headers:
+            {
+                'Content-Type':'application/json'
+            },
+            body:_data
+        }
+    ).then(res=>res.json())
+    .then(data=>
+        {
+            console.log("Az ország sikeresen hozzáadva!")
+            window.location.reload();
+        })
+    .catch(error=>console.log(error));
+}
+
+function addTelepules()
+{
+    let _nev = document.querySelector("#nev").value;
+    let _orszagId = document.querySelector("#orszagok").value;
+
+    let _data = JSON.stringify(
+        {
+            Nev: _nev,
+            OId: _orszagId,
+        }
+    );
+    fetch("http://127.0.0.1:8000/api/telepulesek",
+        {
+            method:'POST',
+            headers:
+            {
+                'Content-Type':'application/json'
+            },
+            body:_data
+        }
+    ).then(res=>res.json())
+    .then(data=>
+        {
+            console.log("A település sikeresen hozzáadva!")
+            window.location.reload();
+        })
+    .catch(error=>console.log(error));
+}
+
 /**/
 /*
 function uploadImage()

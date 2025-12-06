@@ -6,7 +6,18 @@ class OrszagSerializer(serializers.ModelSerializer):
         model = Orszag
         fields = '__all__'
 
+class OrszagSerializerPOST(serializers.ModelSerializer):
+    class Meta:
+        model = Orszag
+        fields = '__all__'
+
 class TelepulesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Telepules
+        fields = '__all__'
+        depth = 2
+
+class TelepulesSerializerPOST(serializers.ModelSerializer):
     class Meta:
         model = Telepules
         fields = '__all__'
