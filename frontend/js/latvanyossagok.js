@@ -5,7 +5,7 @@ function allLatvanyossagok(filter){
     then(res=>res.json()).
     then(res=>{
         if(filter){
-            res = res.filter(element => element.Nev.toLowerCase().includes(filter) || element.RLeiras.toLowerCase().includes(filter));
+            res = res.filter(element => element.Nev.toLowerCase().includes(filter) || element.RLeiras.toLowerCase().includes(filter) || element.Nyitvatartas.toLowerCase().includes(filter));
             if(res == []){
                 document.querySelector("#latvanyossagokGrid").innerHTML = "<h3>Nincs találat</h3>";
             }else{
