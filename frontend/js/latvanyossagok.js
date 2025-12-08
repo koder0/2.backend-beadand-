@@ -1,10 +1,46 @@
 const serverURL = "http://127.0.0.1:8000"
 
-function allLatvanyossagok(){
+function allLatvanyossagok(filter){
     fetch(`${serverURL}/api/latvanyossagok`).
     then(res=>res.json()).
     then(res=>{
-        res.forEach(element => 
+        if(filter){
+            res = res.filter(element => element.Nev.toLowerCase().includes(filter) || element.RLeiras.toLowerCase().includes(filter));
+            if(res == []){
+                document.querySelector("#latvanyossagokGrid").innerHTML = "<h3>Nincs találat</h3>";
+            }else{
+
+                document.querySelector("#latvanyossagokGrid").innerHTML = "";
+                res.forEach(element => 
+                {
+                    document.querySelector("#latvanyossagokGrid").innerHTML +=
+                    `
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card overflow-scroll" style="width: 18rem;">
+                            <a href="${element.URL}" target="_blank" class="card-link"><img class="card-img-top" src="${element.URL}" alt="${element.Nev}" title="${element.Nev}"></a>
+                            <div class="card-body">
+                                <h5 class="card-title">${element.Nev}</h5>
+                                <p class="card-text">${element.RLeiras}</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">${element.VId.OId.Nev}: ${element.VId.Nev}</li>
+                                <li class="list-group-item">${element.AtlagErtekeles}</li>
+                                <li class="list-group-item">Nyitvatartás: ${element.Nyitvatartas}</li>
+                            </ul>
+                            <div class="card-body">
+                                <input type="button" onclick="javascript:deleteLatvanyossag(${element.id})" class="btn btn-danger" value="Törlés">
+                            </div>
+                            </div>
+                    </div>
+                    `;
+                
+                })
+            }
+
+        }
+        else
+        {
+            res.forEach(element => 
             {
                 document.querySelector("#latvanyossagokGrid").innerHTML +=
                 `
@@ -28,6 +64,7 @@ function allLatvanyossagok(){
                 `;
             
             })
+        }
     });
 }
 
@@ -289,31 +326,8 @@ function addTelepules()
         })
     .catch(error=>console.log(error));
 }
-
-/**/
-/*
-function uploadImage()
-{
-    let data = new FormData();
-    data.append("title",document.querySelector("#imageTitle").value);
-    data.append("petImage", document.querySelector("#imageFile").files[0]);
-    fetch( `${serverURL}/api/images`,
-        {
-            method: 'POST',
-            headers: {'Accept':'application/JSON'},
-            body: data
-        }
-    ).then(alert("OK"))
+function keresLatvanyossag(){
+    let _keres = document.querySelector("#kereses").value.toLowerCase();
+    console.log(_keres);
+    allLatvanyossagok(_keres);
 }
-
-function selectPet(){
-    fetch(`${serverURL}/api/random/Cat`).
-    then(res=>res.json()).
-    then(res=>
-    {
-        document.querySelector("#petoftheday").innerHTML = `
-        <img src="${serverURL}${res.petImage}" />`;
-    }
-    )
-}
-*/

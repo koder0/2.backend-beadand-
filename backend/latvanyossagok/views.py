@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.db.models import Q
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -12,15 +13,16 @@ import random
 @api_view(["GET", "POST"])
 def latvanyossagData(request):
     if(request.method == "GET"):
-        allLatvanyossag = Latvanyossag.objects.all().order_by("Nev")
-        serialized = LatvanyossagSerializer(allLatvanyossag, many= True)
-        return Response(serialized.data)
+            allLatvanyossag = Latvanyossag.objects.all().order_by("Nev")
+            serialized = LatvanyossagSerializer(allLatvanyossag, many= True)
+            return Response(serialized.data)       
     if(request.method == "POST"):
          serialized = LatvanyossagSerializerPOST(data=request.data)
          if serialized.is_valid():
              serialized.save()
              return Response(serialized.data,status.HTTP_201_CREATED)
          return Response(serialized.errors,status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(["GET", "POST"])
 def telepulesData(request):
@@ -68,3 +70,17 @@ def deleteTelepules(request,TelepId):
         searchedTelepules = Telepules.objects.get(pk=TelepId)
         searchedTelepules.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(["POST"])
+def filterLatvanyossag(request):
+    searchedText = request.data.get("searchedText", "")
+    if searchedText:
+        foundLat = Latvanyossag.objects.filter(
+            Q(nev__icontains=searchedText) | Q(RLeiras__icontains=searchedText)
+        )
+        serialized = LatvanyossagSerializer(foundLat, many=True)
+        return Response(serialized.data)
+    else:
+        allLatvanyossag = Latvanyossag.objects.all().order_by("Nev")
+        serialized = LatvanyossagSerializer(allLatvanyossag, many= True)
+        return Response(serialized.data)
